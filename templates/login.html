@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>登录</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1>登录</h1>
+<form action="/index/" method="post">
+	{% csrf_token %}
+	<label>用户名:</label>
+	<input type="text" name="username" /><br/>
+	<label>密  码:</label>
+	<input type="password" name="password" /><br/>
+	<input type="submit" value="登录" class="btn btn-primary"/>	
+</form>
+<a href="/register">注册新用户</a>
+</body>
+</html>
