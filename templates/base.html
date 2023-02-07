@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Web渗透平台</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<ul class="nav nav-tabs">
+	<li><a href="/index">首页</a></li>
+	<li><a href="/port-scan">端口扫描</a></li>
+	<li><a href="/dir-scan">目录扫描</a></li>
+	<li><a href="/vul-scan">漏洞扫描</a></li>
+	<li><a href="/vul-search">漏洞查询</a></li>
+	<li><a href="/dns-search">域名查询</a></li>
+	<li><a href="/api-management">API管理</a></li>
+	<li><a href="/logout">退出</a></li>
+</ul>
+
+{% block mainbody %}
+       <p>original</p>
+{% endblock %}
+
+</body>
+</html>
