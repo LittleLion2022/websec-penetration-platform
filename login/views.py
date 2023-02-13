@@ -16,7 +16,7 @@ def index(request):
             return redirect('/')
     if not request.session.get('is_login', None):
         return redirect('/')
-    return render(request,'index.html')
+    return render(request,'index.html',{'login_user':request.session['username']})
 
 def login(request):
     return render(request,'login.html')
@@ -58,3 +58,7 @@ def hash_password(password,salt='websec-salt123'):
     password += salt
     sha256.update(password.encode())
     return sha256.hexdigest()
+
+def change_password(request):
+    pass
+    return render(request,'change-password.html',{'login_user':request.session['username']})

@@ -23,5 +23,6 @@ urlpatterns = [
 	path('index/',login_views.index),
     path('register/',login_views.register),
     path('logout/',login_views.logout),
+    path('change-password/',login_views.change_password),
     path('api-management/',api_views.show),
 ]
