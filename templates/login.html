@@ -12,6 +12,9 @@
 <div class="container">
 	<h1>登录</h1>
 <form action="/index/" method="post" role="form">
+	{% if message %}
+	<div class="alert alert-warning">{{ message }}</div>
+	{% endif %}
 	{% csrf_token %}
 	<div class="form-group">
 		<label>用户名:</label>

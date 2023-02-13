@@ -1,7 +1,7 @@
 {%extends "base.html" %}
 {% block mainbody %}
 
-<p>当前登录用户:{{ login_user }}</p>
+<p>当前登录用户:{{ request.session.username }}</p>
 <p>欢迎使用渗透测试综合平台</p>
 <p>标签式的导航菜单</p>
 

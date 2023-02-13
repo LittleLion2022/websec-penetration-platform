@@ -60,5 +60,28 @@ def hash_password(password,salt='websec-salt123'):
     return sha256.hexdigest()
 
 def change_password(request):
-    pass
-    return render(request,'change-password.html',{'login_user':request.session['username']})
+    if not request.session.get('is_login', None):
+        return redirect('/')
+    current_user = request.session['username']
+    if request.method == 'POST':
+        oldpassword = request.POST.get('oldpassword')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        user_obj = models.User.objects.filter(username=current_user,password=hash_password(oldpassword)).first()
+        if user_obj:
+            if oldpassword == password1 or oldpassword == password2:
+                message = '新的密码不能与旧的密码一致'
+                return render(request, 'change-password.html',locals())
+            if password1 == password2:
+                user = models.User.objects.get(username=current_user)
+                user.password = hash_password(password1)
+                user.save()
+                request.session.flush()
+                return redirect("/")
+            else:
+                message='两次输入密码不一致'
+                return render(request, 'change-password.html',locals())
+        else:
+            message = '密码错误，详情请联系管理员'
+            return render(request, 'change-password.html',locals())
+    return render(request,'change-password.html',locals())
