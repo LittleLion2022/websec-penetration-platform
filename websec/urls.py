@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path 
 from login import views as login_views
+from portscan import views as portscan_views
+from dirscan import views as dirscan_views
+from vulscan import views as vulscan_views
+from vulsearch import views as vulsearch_views
+from dnssearch import views as dnssearch_views
 from api import views as api_views
 urlpatterns = [
 	path('',login_views.login),
@@ -25,4 +30,9 @@ urlpatterns = [
     path('logout/',login_views.logout),
     path('change-password/',login_views.change_password),
     path('api-management/',api_views.show),
+    path('port-scan/',portscan_views.scanner),
+    path('dir-scan/',dirscan_views.scanner),
+    path('dns-search/',dnssearch_views.scanner),
+    path('vul-scan/',vulscan_views.scanner),
+    path('vul-search/',vulsearch_views.scanner),
 ]

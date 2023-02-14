@@ -2,8 +2,15 @@ from django.shortcuts import render,redirect
 from django.shortcuts import HttpResponse
 from login import models
 import hashlib
+import datetime
 # Create your views here.
 def index(request):
+    y = datetime.datetime.now().year
+    m = datetime.datetime.now().month
+    d = datetime.datetime.now().day
+    h = datetime.datetime.now().hour
+    i = datetime.datetime.now().minute
+    s = datetime.datetime.now().second
     if request.method == 'POST':
         username=request.POST.get('username').strip()
         password=request.POST.get('password')
@@ -16,7 +23,7 @@ def index(request):
             return redirect('/')
     if not request.session.get('is_login', None):
         return redirect('/')
-    return render(request,'index.html',{'login_user':request.session['username']})
+    return render(request,'index.html',locals())
 
 def login(request):
     return render(request,'login.html')
