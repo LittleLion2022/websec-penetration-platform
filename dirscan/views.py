@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 # Create your views here.
 def scanner(request):
-    pass
+    if not request.session.get('is_login', None):
+        return redirect('/')
+    if request.method == 'POST':
+        pass
     return render(request,'dir-scan.html')

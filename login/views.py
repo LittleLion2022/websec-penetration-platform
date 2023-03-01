@@ -1,16 +1,9 @@
 from django.shortcuts import render,redirect
-from django.shortcuts import HttpResponse
 from login import models
 import hashlib
-import datetime
+
 # Create your views here.
 def index(request):
-    y = datetime.datetime.now().year
-    m = datetime.datetime.now().month
-    d = datetime.datetime.now().day
-    h = datetime.datetime.now().hour
-    i = datetime.datetime.now().minute
-    s = datetime.datetime.now().second
     if request.method == 'POST':
         username=request.POST.get('username').strip()
         password=request.POST.get('password')
@@ -20,7 +13,9 @@ def index(request):
             request.session['username'] = user_obj.username
             return redirect('/index/')
         else:
-            return redirect('/')
+            message = '用户名不存在或密码错误' 
+            return render(request,'login.html',locals())
+
     if not request.session.get('is_login', None):
         return redirect('/')
     return render(request,'index.html',locals())
@@ -76,6 +71,9 @@ def change_password(request):
         password2 = request.POST.get('password2')
         user_obj = models.User.objects.filter(username=current_user,password=hash_password(oldpassword)).first()
         if user_obj:
+            if not password1 and not password2:
+                message = '密码不能为空' 
+                return render(request, 'change-password.html', locals())
             if oldpassword == password1 or oldpassword == password2:
                 message = '新的密码不能与旧的密码一致'
                 return render(request, 'change-password.html',locals())
