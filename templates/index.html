@@ -1,8 +1,23 @@
 {%extends "base.html" %}
 {% block mainbody %}
-<p>当前登录用户:{{ request.session.username }}</p>
-<p>欢迎使用渗透测试综合平台</p>
+<!-- <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+ 
+        myChart.setOption({
+            series : [
+                {
+                    name: '访问来源',
+                    type: 'pie',    // 设置图表类型为饼图
+                    radius: '55%',  // 饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
+                    data:[          // 数据数组，name 为数据项名称，value 为数据项值
 
 
+                    ]
+                }
+            ]
+        })
+    </script> -->
 {% endblock %}
 

@@ -11,7 +11,9 @@ def index(request):
         if user_obj:
             request.session['is_login'] = True
             request.session['username'] = user_obj.username
-            return redirect('/index/')
+            # return redirect('/index/')
+            # port_list = models.Ports.objects.filter(username=request.session['username'])
+            return render(request,'index.html',locals())
         else:
             message = '用户名不存在或密码错误' 
             return render(request,'login.html',locals())

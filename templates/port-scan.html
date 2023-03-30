@@ -1,9 +1,8 @@
 {%extends "base.html" %}
 {% block mainbody %}
 <h1>端口扫描</h1>
-
 <div class="row">
-    <div class="col p-3">
+    <div class="col p-6">
         <form action="/port-scan/" method="post">
         {% if message %}
             <div class="alert alert-warning">{{ message }}</div>
@@ -11,9 +10,11 @@
         {% csrf_token %}
         <label>IP</label>
         <input class="form-control"  type="text" name="ip"><br/>
-        <input type="submit" value="开始扫描" class="btn btn-primary btn-block"/>	
+        <input type="submit" value="开始扫描" class="btn btn-primary btn-block"/>      
         </form>
     </div>
+</div>
+<div class="row">
     <div class="col p-6">
         <table class="table table-bordered table-striped">
             <tr>
@@ -30,13 +31,20 @@
                 <td>{{ result.datetime }}</td>
             </tr>
             {% endfor %}
-
         </table>
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            {% if port_list.has_previous %}
+            <li class="page-item"><a class="page-link" href="/port-scan/?page={{ port_list.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            {% if port_list.has_next %}
+            <li class="page-item"><a class="page-link" href="/port-scan/?page={{ port_list.next_page_number }}">Next</a></li>
+            {% endif %}
         </ul>
     </div>
 
 </div>
+    
+
+
+
 {% endblock %}

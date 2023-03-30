@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.utils import timezone
+from django.core.paginator import Paginator
 from portscan import models
 import re,nmap3
 
@@ -7,6 +8,10 @@ import re,nmap3
 def scanner(request):
     if not request.session.get('is_login', None):
         return redirect('/')
+    port_list = models.Ports.objects.filter(username=request.session['username']).order_by("-datetime")
+    port_list = Paginator(port_list, 7)
+    page = request.GET.get('page')
+    port_list = port_list.get_page(page)
     if request.method == 'POST':
         if cheak_ip(request.POST.get('ip').strip()):
             host = request.POST.get('ip').strip()
@@ -22,7 +27,7 @@ def scanner(request):
         else:
             message = 'IP地址格式非法'
             return render(request,'port-scan.html',locals())
-    port_list = models.Ports.objects.filter(username=request.session['username'])
+    
     return render(request,'port-scan.html',locals())
 
 def cheak_ip(string):
@@ -41,3 +46,4 @@ def host_scan(host):
     for i in ports:
         print(f'{i["protocol"]}\t{i["portid"]}\t{i["state"]}\t{i["service"]["name"]}')
     return ports,time
+
