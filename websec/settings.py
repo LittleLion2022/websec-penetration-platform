@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'login',
     'api',
+    # 'dirsearch',
+    # 'dnssearch',
     'portscan',
+    # 'vulscan',
+    # 'vulsearch',
 ]
 
 MIDDLEWARE = [
