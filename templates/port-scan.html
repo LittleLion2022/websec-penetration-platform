@@ -15,7 +15,27 @@
         </form>
     </div>
     <div class="col p-6">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>IP地址</th>
+                <th>端口号</th>
+                <th>服务名称</th>
+                <th>扫描时间</th>
+            </tr>
+            {% for result in port_list %}
+            <tr>
+                <td>{{ result.ip }}</td>
+                <td>{{ result.portid }}</td>
+                <td>{{ result.service }}</td>
+                <td>{{ result.datetime }}</td>
+            </tr>
+            {% endfor %}
 
+        </table>
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
     </div>
 
 </div>

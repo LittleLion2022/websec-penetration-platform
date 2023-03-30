@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
+from django.utils import timezone
 from portscan import models
-import re,json,nmap3,datetime
+import re,nmap3
 
 # Create your views here.
 def scanner(request):
@@ -21,7 +22,8 @@ def scanner(request):
         else:
             message = 'IP地址格式非法'
             return render(request,'port-scan.html',locals())
-    return render(request,'port-scan.html')
+    port_list = models.Ports.objects.filter(username=request.session['username'])
+    return render(request,'port-scan.html',locals())
 
 def cheak_ip(string):
     ip_pattern = '(([01]{0,1}\d{0,1}\d|2[0-4]\d|25[0-5])\.){3}([01]{0,1}\d{0,1}\d|2[0-4]\d|25[0-5])'
@@ -35,7 +37,7 @@ def host_scan(host):
     nmap = nmap3.NmapHostDiscovery()
     result = nmap.nmap_portscan_only(host)
     ports = result[host]['ports']
-    time = datetime.datetime.now()
+    time = timezone.now()
     for i in ports:
         print(f'{i["protocol"]}\t{i["portid"]}\t{i["state"]}\t{i["service"]["name"]}')
     return ports,time
