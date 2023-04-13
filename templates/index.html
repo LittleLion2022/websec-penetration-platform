@@ -1,23 +1,46 @@
 {%extends "base.html" %}
 {% block mainbody %}
-<!-- <div id="main" style="width: 600px;height:400px;"></div>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
- 
-        myChart.setOption({
-            series : [
-                {
-                    name: '访问来源',
-                    type: 'pie',    // 设置图表类型为饼图
-                    radius: '55%',  // 饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
-                    data:[          // 数据数组，name 为数据项名称，value 为数据项值
-
-
-                    ]
-                }
-            ]
-        })
-    </script> -->
+<p>目录扫描</p>
+<div class="container">
+<canvas id="myChart" width="180" height="180"></canvas>
+<script>
+const ctx = document.getElementById('myChart');
+const data = {
+  labels: [
+    '2xx',
+    '3xx',
+    '4xx',
+    '5xx'
+  ],
+  datasets: [{
+    label: '饼图实例',
+    data: [300, 50, 100,45],
+    backgroundColor: [
+      'rgb(53, 210, 91)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)',
+      'rgb(255, 66, 66)'
+    ],
+    hoverOffset: 4
+  }]
+};
+const config = {
+  type: 'pie',
+  data: data,
+  options: {
+    responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
+    maintainAspectRatio: false,// 保持图表原有比例
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero:true
+		}
+	  }]
+    }
+  }
+};
+const myChart = new Chart(ctx, config);
+</script>
+</div>
 {% endblock %}
 

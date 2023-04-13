@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'login',
     'api',
-    # 'dirsearch',
+    'dirscan',
     # 'dnssearch',
     'portscan',
     # 'vulscan',

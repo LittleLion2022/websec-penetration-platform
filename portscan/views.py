@@ -13,7 +13,7 @@ def scanner(request):
     page = request.GET.get('page')
     port_list = port_list.get_page(page)
     if request.method == 'POST':
-        if cheak_ip(request.POST.get('ip').strip()):
+        if check_ip(request.POST.get('ip').strip()):
             host = request.POST.get('ip').strip()
             results,time =  host_scan(host)
             for result in results:
@@ -30,7 +30,7 @@ def scanner(request):
     
     return render(request,'port-scan.html',locals())
 
-def cheak_ip(string):
+def check_ip(string):
     ip_pattern = '(([01]{0,1}\d{0,1}\d|2[0-4]\d|25[0-5])\.){3}([01]{0,1}\d{0,1}\d|2[0-4]\d|25[0-5])'
     m = re.match(ip_pattern,string)
     if m != None:
@@ -46,4 +46,3 @@ def host_scan(host):
     for i in ports:
         print(f'{i["protocol"]}\t{i["portid"]}\t{i["state"]}\t{i["service"]["name"]}')
     return ports,time
-

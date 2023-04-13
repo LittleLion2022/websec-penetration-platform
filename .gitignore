@@ -1,2 +1,3 @@
 *.sqlite3
 password.txt
+static/Highcharts-10.3.3/*

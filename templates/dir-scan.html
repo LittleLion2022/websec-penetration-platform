@@ -1,6 +1,47 @@
 {%extends "base.html" %}
 {% block mainbody %}
 <h1>目录扫描</h1>
+<div class="row">
+    <div class="col p-6">
+        <form action="/dir-scan/" method="post">
+        {% if message %}
+            <div class="alert alert-warning">{{ message }}</div>
+        {% endif %}
+        {% csrf_token %}
+        <label>URL</label>
+        <input class="form-control"  type="text" name="url"><br/>
+        <input type="submit" value="开始扫描" class="btn btn-primary btn-block"/>      
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col p-6">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>URL</th>
+                <th>扫描目录</th>
+                <th>HTTP状态码</th>
+                <th>扫描时间</th>
+            </tr>
+            {% for result in url_list %}
+            <tr>
+                <td>{{ result.url }}</td>
+                <td>{{ result.dir }}</td>
+                <td>{{ result.httpcode }}</td>
+                <td>{{ result.datetime }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <ul class="pagination">
+            {% if url_list.has_previous %}
+            <li class="page-item"><a class="page-link" href="/dir-scan/?page={{ url_list.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            {% if url_list.has_next %}
+            <li class="page-item"><a class="page-link" href="/dir-scan/?page={{ url_list.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </div>
 
-
+</div>
+    
 {% endblock %}
