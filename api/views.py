@@ -1,14 +1,10 @@
 from django.shortcuts import render,redirect
-from django.utils import timezone
-from django.core.paginator import Paginator
 from api import models
 # Create your views here.
 def show(request):
     if not request.session.get('is_login', None):
         return redirect('/')
     username = request.session['username']
-    # print(username)
-    # print(models.APIs.objects.filter(username=username)==None)
     vt_key = models.APIs.objects.get(username=username).vt_key
     if request.method == 'POST':
         vt_key=request.POST.get('vt-key').strip()

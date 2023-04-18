@@ -1,4 +1,6 @@
 from django.shortcuts import render,redirect
+from django.utils import timezone
+from django.core.paginator import Paginator
 import re,requests
 # Create your views here.
 def scanner(request):
