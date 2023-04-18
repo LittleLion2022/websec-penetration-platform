@@ -1,6 +1,45 @@
 {%extends "base.html" %}
 {% block mainbody %}
-<h1>DNS查询</h1>
-
+<h1>子域名查询</h1>
+<div class="row">
+    <div class="col p-6">
+        <form action="/dns-search/" method="post">
+        {% if message %}
+            <div class="alert alert-warning">{{ message }}</div>
+        {% endif %}
+        {% csrf_token %}
+        <label>域名</label>
+        <input class="form-control"  type="text" name="url"><br/>
+        <input type="submit" value="开始搜索" class="btn btn-primary btn-block"/>      
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col p-6">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>域名</th>
+                <th>子域名</th>
+                <th>扫描时间</th>
+            </tr>
+            {% for result in url_list %}
+            <tr>
+                <td>{{ result.url }}</td>
+                <td>{{ result.dir }}</td>
+                <td>{{ result.httpcode }}</td>
+                <td>{{ result.datetime }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <ul class="pagination">
+            {% if url_list.has_previous %}
+            <li class="page-item"><a class="page-link" href="/dns-search/?page={{ url_list.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            {% if url_list.has_next %}
+            <li class="page-item"><a class="page-link" href="/dns-search/?page={{ url_list.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
 
 {% endblock %}

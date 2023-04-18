@@ -2,5 +2,17 @@
 {% block mainbody %}
 <h1>API管理</h1>
 <p>当前登录用户:{{ request.session.username }}</p>
-
+<div class="container">
+<form action="/api-management/" method="post" role="form">
+	{% if message %}
+	<div class="alert alert-warning">{{ message }}</div>
+	{% endif %}
+	{% csrf_token %}
+	<div class="form-group">
+		<label>Virus Total API Key:</label>
+		<input class="form-control" type="text" name="vt-key" value="{{ vt_key }}"/><br/>
+	</div>
+	<input type="submit" value="提交" class="btn btn-primary btn-lg btn-block"/>	
+</form>
+</div>
 {% endblock %}

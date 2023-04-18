@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'login',
     'api',
     'dirscan',
-    # 'dnssearch',
+    'dnssearch',
     'portscan',
     # 'vulscan',
     # 'vulsearch',
