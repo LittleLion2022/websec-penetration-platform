@@ -1,8 +1,8 @@
 from django.db import models
 
 # Create your models here.
-class Domins(models.Model):
+class Domains(models.Model):
     username = models.CharField(max_length=20)
-    domin = models.CharField(max_length=100)
-    subdomin = models.CharField(max_length=100,default='/')
+    domain = models.CharField(max_length=100)
+    subdomain = models.CharField(max_length=100,default='')
     datetime = models.DateTimeField()
