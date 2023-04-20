@@ -1,6 +1,18 @@
 {%extends "base.html" %}
 {% block mainbody %}
-<h1>漏洞查询</h1>
-
+<h1>漏洞搜索</h1>
+<div class="row">
+    <div class="col p-6">
+        <form action="/dir-scan/" method="post">
+        {% if message %}
+            <div class="alert alert-warning">{{ message }}</div>
+        {% endif %}
+        {% csrf_token %}
+        <label>Zoomeye在线搜索引擎</label>
+        <input class="form-control"  type="text" name="vul"><br/>
+        <input type="submit" value="搜索" class="btn btn-primary btn-block"/>      
+        </form>
+    </div>
+</div>
 
 {% endblock %}

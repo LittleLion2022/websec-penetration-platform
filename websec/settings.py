@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'dirscan',
     'dnssearch',
     'portscan',
-    # 'vulscan',
-    # 'vulsearch',
+    'vulscan',
+    'vulsearch',
 ]
 
 MIDDLEWARE = [
