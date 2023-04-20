@@ -1,46 +1,141 @@
 {%extends "base.html" %}
 {% block mainbody %}
-<p>目录扫描</p>
-<div class="container">
-<canvas id="myChart" width="180" height="180"></canvas>
+<div class="row">
+  <div class="col p-4">
+      <p>目录统计</p>
+  </div>
+
+  <div class="col p-4">
+    <p>端口统计</p>
+  </div>
+
+  <div class="col p-4">
+      <p>子域名统计</p>
+  </div>
+</div>
+<div class="row">
+    <div class="col p-4">
+        <canvas id="dir-scan" width="300" height="300"></canvas>
+    </div>
+
+    <div class="col p-4">
+      <canvas id="port-scan" width="400" height="400"></canvas>
+    </div>
+
+    <div class="col p-4">
+      <canvas id="dns-search" width="400" height="400"></canvas>
+    </div>
+</div>
 <script>
-const ctx = document.getElementById('myChart');
-const data = {
-  labels: [
-    '2xx',
-    '3xx',
-    '4xx',
-    '5xx'
-  ],
-  datasets: [{
-    label: '饼图实例',
-    data: [300, 50, 100,45],
-    backgroundColor: [
-      'rgb(53, 210, 91)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)',
-      'rgb(255, 66, 66)'
+  ctx = document.getElementById('dir-scan');
+  data = {
+    labels: [
+      '200','404'
     ],
-    hoverOffset: 4
+    datasets: [{
+      label: 'Circle',
+      data: [16, 94],
+      backgroundColor: [
+        'rgb(89, 219, 219)',
+        'rgb(255, 64, 105)',
+      ],
+      hoverOffset: 4
+    }]
+  };
+  config = {
+    type: 'doughnut',
+    data: data,
+    options: {
+      responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
+      maintainAspectRatio: false,// 保持图表原有比例
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+      }
+      }]
+      }
+    }
+  };
+  
+  myChart = new Chart(ctx, config);
+  </script>
+
+<script>
+  ctx = document.getElementById('dns-search');
+  data = {
+    labels: [
+      '200','404'
+    ],
+    datasets: [{
+      label: '子域名个数',
+      data: [16, 94],
+      backgroundColor: [
+      'rgb(89, 219, 219)',
+        'rgb(255, 64, 105)',
+      ],
+      hoverOffset: 4
+    }]
+  };
+  config = {
+    type: 'pie',
+    data: data,
+    options: {
+      responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
+      maintainAspectRatio: false,// 保持图表原有比例
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+      }
+      }]
+      }
+    }
+  };
+  myChart = new Chart(ctx, config);
+  </script>
+
+<script>
+ctx = document.getElementById('port-scan');
+labels = [22,23,25,80,3306,8080,9090];  // 设置 X 轴上对应的标签
+data = {
+  labels: labels,
+  datasets: [{
+    label: '端口开放情况',
+    data: [65, 59, 80, 81, 56, 55, 40],
+    backgroundColor: [      // 设置每个柱形图的背景颜色
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(255, 159, 64, 0.2)',
+      'rgba(255, 205, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      'rgba(201, 203, 207, 0.2)'
+    ],
+    borderColor: [     //设置每个柱形图边框线条颜色
+      'rgb(255, 99, 132)',
+      'rgb(255, 159, 64)',
+      'rgb(255, 205, 86)',
+      'rgb(75, 192, 192)',
+      'rgb(54, 162, 235)',
+      'rgb(153, 102, 255)',
+      'rgb(201, 203, 207)'
+    ],
+    borderWidth: 1     // 设置线条宽度
   }]
 };
-const config = {
-  type: 'pie',
-  data: data,
+config = {
+  type: 'bar', // 设置图表类型
+  data: data,  // 设置数据集
   options: {
-    responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
-    maintainAspectRatio: false,// 保持图表原有比例
     scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero:true
-		}
-	  }]
+      y: {
+        beginAtZero: true // 设置 y 轴从 0 开始
+      }
     }
-  }
+  },
 };
-const myChart = new Chart(ctx, config);
-</script>
-</div>
+myChart = new Chart(ctx, config);
+  </script>
 {% endblock %}
 

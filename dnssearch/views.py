@@ -14,8 +14,16 @@ def scanner(request):
     domain_list = domain_list.get_page(page)
     if request.method == 'POST':
         domain = request.POST.get('domain').strip()
+        try:
+            limit = int(request.POST.get('limit').strip())
+        except ValueError:
+            message = '请输入显示条数'
+            return render(request,'dns-search.html',locals())
+        print(limit)
         if check_domain(domain):
-            url = f'https://www.virustotal.com/api/v3/domains/{domain}/subdomains?limit=12'
+            if limit <= 0:
+                limit = 12
+            url = f'https://www.virustotal.com/api/v3/domains/{domain}/subdomains?limit={limit}'
             try:
                 api = api_models.APIs.objects.get(username=request.session['username']).vt_key
             except api_models.APIs.DoesNotExist:
