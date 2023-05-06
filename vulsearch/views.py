@@ -15,6 +15,9 @@ def scanner(request):
     record_list = record_list.get_page(page)
     if request.method == 'POST':
         keyword = request.POST.get('keyword')
+        if keyword == '':
+            message = '目标为空'
+            return render(request,'vul-search.html',locals())   
         try:
             api = api_models.APIs.objects.get(username=request.session['username']).ze_key
         except api_models.APIs.DoesNotExist:
@@ -34,5 +37,5 @@ def scanner(request):
             new_result.ip = result[1]
             new_result.country = result[2]
             new_result.city = result[3]
-            new_result.save()
+            new_result.save()    
     return render(request,'vul-search.html',locals())

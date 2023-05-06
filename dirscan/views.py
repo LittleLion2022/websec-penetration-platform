@@ -16,7 +16,7 @@ def scanner(request):
             target = request.POST.get('url').strip()
             time = timezone.now()
             headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48'
             }
             with open('./dirscan/dicts/dict.txt','r') as f:
                 dir_list = f.readlines()
