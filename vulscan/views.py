@@ -24,20 +24,21 @@ def scanner(request):
             'X-Auth': api,
             'Content-type': 'application/json'
         }
-        
-        print(api)
         awvs_host = "https://localhost:3443"
         api_url = awvs_host + '/api/v1/targets'
         data = {
             "address": target,
-            "description": "target",
+            "description": "AWVS API",
             "criticality": "10"
         }
         data_json = json.dumps(data)
         r = requests.post(url=api_url, headers=headers, data=data_json, verify=False)
+        #获取target id
         target_id = r.json().get("target_id")
         print('target_id:', target_id)
-        api_url = awvs_host + '/api/v1/scans'
+        api_url = awvs_host + '/api/v1/targets'
+        # 完全扫描："11111111-1111-1111-1111-111111111111"
+        # 快速扫描："11111111-1111-1111-1111-111111111112"
         data = {
             "target_id": target_id,
             "profile_id": "11111111-1111-1111-1111-111111111112",
@@ -48,10 +49,27 @@ def scanner(request):
                 "time_sensitive": False
             }
         }
+    #将字典data转化为json形式
     data_json = json.dumps(data)
+    api_url = awvs_host + '/api/v1/scans'
     r = requests.post(url=api_url, headers=headers, data=data_json, verify=False)
+    print(r.json())
+    api_url = awvs_host + '/api/v1/scans'
+    r = requests.get(url=api_url, headers=headers, verify=False)
+    #获取scan_id
+    scan_id = r.json().get("scans")[0].get("scan_id")
+    #获取scan_session_id
+    scan_session_id = r.json().get("scans")[0].get("current_session").get("scan_session_id")
+    print(scan_session_id)
+    api_url = awvs_host + '/api/v1/scans/' + str(scan_id) + '/results/'+ str(scan_session_id) + '/statistics'
+    r = requests.get(url=api_url, headers=headers, verify=False)
+    results = r.json()
+    while(results['scanning_app']['wvs']['status'] == 'processing'):
+        r = requests.get(url=api_url, headers=headers, verify=False)
+        results = r.json()
+    print(results)
+    
     return render(request,'vul-scan.html',locals())
-
 def check_url(string):
     url_pattern = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     m = re.match(url_pattern,string)
