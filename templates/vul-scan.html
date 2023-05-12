@@ -14,5 +14,34 @@
         </form>
     </div>
 </div>
-
+<div class="row">
+    <div class="col p-6">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>目标</th>
+                <th>漏洞名称</th>
+                <th>漏洞id</th>
+                <th>漏洞等级</th>
+                <th>检测时间</th>
+            </tr>
+            {% for result in vul_list %}
+            <tr>
+                <td>{{ result.url }}</td>
+                <td>{{ result.vul }}</td>
+                <td>{{ result.vul_id }}</td>
+                <td>{{ result.grade }}</td>
+                <td>{{ result.datetime }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <ul class="pagination">
+            {% if vul_list.has_previous %}
+            <li class="page-item"><a class="page-link" href="/vul-scan/?page={{ vul_list.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            {% if vul_list.has_next %}
+            <li class="page-item"><a class="page-link" href="/vul-scan/?page={{ vul_list.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
 {% endblock %}
