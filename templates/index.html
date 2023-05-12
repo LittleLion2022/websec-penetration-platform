@@ -1,141 +1,47 @@
 {%extends "base.html" %}
+
 {% block mainbody %}
-<div class="row">
-  <div class="col p-4">
-      <p>目录统计</p>
+<!-- Carousel -->
+<div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+  <!-- Indicators/dots -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
   </div>
-
-  <div class="col p-4">
-    <p>端口统计</p>
-  </div>
-
-  <div class="col p-4">
-      <p>子域名统计</p>
-  </div>
-</div>
-<div class="row">
-    <div class="col p-4">
-        <canvas id="dir-scan" width="300" height="300"></canvas>
-    </div>
-
-    <div class="col p-4">
-      <canvas id="port-scan" width="400" height="400"></canvas>
-    </div>
-
-    <div class="col p-4">
-      <canvas id="dns-search" width="400" height="400"></canvas>
-    </div>
-</div>
-<script>
-  ctx = document.getElementById('dir-scan');
-  data = {
-    labels: [
-      '200','404'
-    ],
-    datasets: [{
-      label: 'Circle',
-      data: [16, 94],
-      backgroundColor: [
-        'rgb(89, 219, 219)',
-        'rgb(255, 64, 105)',
-      ],
-      hoverOffset: 4
-    }]
-  };
-  config = {
-    type: 'doughnut',
-    data: data,
-    options: {
-      responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
-      maintainAspectRatio: false,// 保持图表原有比例
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero:true
-      }
-      }]
-      }
-    }
-  };
   
-  myChart = new Chart(ctx, config);
-  </script>
-
-<script>
-  ctx = document.getElementById('dns-search');
-  data = {
-    labels: [
-      '200','404'
-    ],
-    datasets: [{
-      label: '子域名个数',
-      data: [16, 94],
-      backgroundColor: [
-      'rgb(89, 219, 219)',
-        'rgb(255, 64, 105)',
-      ],
-      hoverOffset: 4
-    }]
-  };
-  config = {
-    type: 'pie',
-    data: data,
-    options: {
-      responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
-      maintainAspectRatio: false,// 保持图表原有比例
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero:true
-      }
-      }]
-      }
-    }
-  };
-  myChart = new Chart(ctx, config);
-  </script>
-
-<script>
-ctx = document.getElementById('port-scan');
-labels = [22,23,25,80,3306,8080,9090];  // 设置 X 轴上对应的标签
-data = {
-  labels: labels,
-  datasets: [{
-    label: '端口开放情况',
-    data: [65, 59, 80, 81, 56, 55, 40],
-    backgroundColor: [      // 设置每个柱形图的背景颜色
-      'rgba(255, 99, 132, 0.2)',
-      'rgba(255, 159, 64, 0.2)',
-      'rgba(255, 205, 86, 0.2)',
-      'rgba(75, 192, 192, 0.2)',
-      'rgba(54, 162, 235, 0.2)',
-      'rgba(153, 102, 255, 0.2)',
-      'rgba(201, 203, 207, 0.2)'
-    ],
-    borderColor: [     //设置每个柱形图边框线条颜色
-      'rgb(255, 99, 132)',
-      'rgb(255, 159, 64)',
-      'rgb(255, 205, 86)',
-      'rgb(75, 192, 192)',
-      'rgb(54, 162, 235)',
-      'rgb(153, 102, 255)',
-      'rgb(201, 203, 207)'
-    ],
-    borderWidth: 1     // 设置线条宽度
-  }]
-};
-config = {
-  type: 'bar', // 设置图表类型
-  data: data,  // 设置数据集
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true // 设置 y 轴从 0 开始
-      }
-    }
-  },
-};
-myChart = new Chart(ctx, config);
-  </script>
+  <!-- The slideshow/carousel -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://static.runoob.com/images/mix/img_fjords_wide.jpg" class="d-block" style="width:100%">
+      <div class="carousel-caption">
+        <h3>你好！用户{{ request.session.username }}</h3>
+        <p>欢迎登录渗透测试系统</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://static.runoob.com/images/mix/img_nature_wide.jpg" class="d-block" style="width:100%">
+      <div class="carousel-caption">
+        <h3>渗透测试</h3>
+        <p>是一项在计算机系统上进行的授权模拟攻击，旨在对其安全性进行评估，是为了证明网络防御按照预期计划正常运行而提供的一种机制。</p>
+      </div> 
+    </div>
+    <div class="carousel-item">
+      <img src="https://static.runoob.com/images/mix/img_mountains_wide.jpg" class="d-block" style="width:100%">
+      <div class="carousel-caption">
+        <h3>使用Django Web框架</h3>
+        <p>现代、美观、效率</p>
+      </div>  
+    </div>
+  </div>
+  
+  <!-- Left and right controls/icons -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
 {% endblock %}
-
