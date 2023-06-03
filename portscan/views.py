@@ -15,6 +15,9 @@ def scanner(request):
     if request.method == 'POST':
         if check_ip(request.POST.get('ip').strip()):
             host = request.POST.get('ip').strip()
+            if nmap3.utils.get_nmap_path() == '':
+                message = '未在系统环境变量中检测到Nmap'
+                return render(request,'port-scan.html',locals())
             results,time =  host_scan(host)
             for result in results:
                 new_result = models.Ports()
